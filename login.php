@@ -11,6 +11,16 @@ if (esta_autenticado()) {
 $error = '';
 $success = '';
 
+// Verificar si existen usuarios en el sistema
+$check_usuarios = $mysqli->query("SELECT COUNT(*) as total FROM usuarios");
+$resultado_check = $check_usuarios->fetch_assoc();
+$hay_usuarios = $resultado_check['total'] > 0;
+
+// Mensaje si intentaron acceder a registro cuando ya hay usuarios
+if (isset($_GET['registro_deshabilitado'])) {
+    $error = 'El registro ya no está disponible. Ya existe al menos un usuario en el sistema.';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';

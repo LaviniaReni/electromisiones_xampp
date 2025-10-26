@@ -17,6 +17,7 @@ $result = $mysqli->query("SELECT p.id, p.sku, p.nombre, p.precio_venta, p.stock,
 // Capturar mensajes de sesión
 $mensaje_exito = $_SESSION['mensaje_exito'] ?? '';
 $mensaje_error = $_SESSION['mensaje_error'] ?? '';
+$primer_usuario = isset($_GET['primer_usuario']);
 unset($_SESSION['mensaje_exito'], $_SESSION['mensaje_error']);
 ?>
 <!DOCTYPE html>
