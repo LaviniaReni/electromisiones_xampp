@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2025 a las 02:26:30
+-- Tiempo de generación: 26-10-2025 a las 21:59:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -70,7 +70,8 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `sku`, `nombre`, `descripcion`, `categoria_id`, `proveedor_id`, `precio_compra`, `precio_venta`, `stock`, `activo`, `created_at`) VALUES
-(1, 'EM-001', 'Lámpara LED 12W', NULL, 12, 1, 200.00, 350.00, 50, 1, '2025-10-25 19:37:34');
+(1, 'EM-001', 'Lámpara LED 12W', NULL, 12, 1, 200.00, 350.00, 50, 1, '2025-10-25 19:37:34'),
+(2, 'EM-002', 'Pala super Poderosa', NULL, 13, 2, 1000.00, 3000.00, 100, 1, '2025-10-26 17:55:19');
 
 -- --------------------------------------------------------
 
@@ -127,6 +128,13 @@ CREATE TABLE `sesiones` (
   `last_activity` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `sesiones`
+--
+
+INSERT INTO `sesiones` (`id`, `usuario_id`, `ip_address`, `user_agent`, `created_at`, `last_activity`) VALUES
+('87ccn32pic63e5ktbkul5cf2bq', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-26 17:56:46', '2025-10-26 17:56:46');
+
 -- --------------------------------------------------------
 
 --
@@ -173,9 +181,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `username`, `password_hash`, `nombre_completo`, `email`, `rol_id`, `activo`, `ultimo_acceso`, `created_at`) VALUES
-(1, 'admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrador', 'admin@electromisiones.com.ar', 1, 1, NULL, '2025-10-25 20:44:46'),
-(2, 'vendedor', '$2y$10$xHzV8Fv3c5g8C8j9m7n8LOxz5y.Q5cJq8x.W3j9m7n8LOxz5y.Q5c', 'Juan Pérez', 'vendedor@electromisiones.com.ar', 2, 1, NULL, '2025-10-25 20:44:46'),
-(3, 'visor', '$2y$10$E4g8H9m2n7K8L9o6p5Q4r3T2u1V0w9X8y7Z6A5b4C3d2E1f0G', 'Pedro Martínez', 'visor@electromisiones.com.ar', 3, 1, NULL, '2025-10-25 21:17:13');
+(1, 'admin', '$2y$10$s3yPYrTo0UHB8PW.H5HLQOZ95/bNMpEyv4hzyZf7zdgr0Gi1OkS6i', 'Administrador', '', 1, 1, '2025-10-26 17:56:46', '2025-10-26 17:50:07');
 
 --
 -- Índices para tablas volcadas
@@ -245,7 +251,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -269,7 +275,7 @@ ALTER TABLE `sucursales`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
