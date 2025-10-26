@@ -181,14 +181,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Iniciar Sesión</button>
         </form>
         
-        <div class="demo-info">
-            <h3>👤 Usuarios de prueba:</h3>
-            <p><strong>Administrador:</strong></p>
-            <p>Usuario: <code>admin</code> / Contraseña: <code>admin123</code></p>
-            <br>
-            <p><strong>Vendedor:</strong></p>
-            <p>Usuario: <code>vendedor</code> / Contraseña: <code>vendedor123</code></p>
-        </div>
+        <?php if (!$hay_usuarios): ?>
+            <div class="demo-info" style="background: #e7f3ff; border: 1px solid #b3d9ff;">
+                <h3>🎉 Primera vez usando el sistema</h3>
+                <p>No hay usuarios registrados aún.</p>
+                <p style="margin-top: 10px;">
+                    <a href="registro.php" style="color: #004085; font-weight: bold; text-decoration: none; display: inline-block; padding: 10px 20px; background: white; border-radius: 5px; margin-top: 10px;">
+                        ➡️ Crear primer usuario administrador
+                    </a>
+                </p>
+            </div>
+        <?php else: ?>
+            <div class="demo-info">
+                <h3>👤 Usuarios de prueba:</h3>
+                <p><strong>Administrador:</strong></p>
+                <p>Usuario: <code>admin</code> / Contraseña: <code>admin123</code></p>
+                <br>
+                <p><strong>Vendedor:</strong></p>
+                <p>Usuario: <code>vendedor</code> / Contraseña: <code>vendedor123</code></p>
+            </div>
+        <?php endif; ?>
     </div>
 </body>
 </html>
