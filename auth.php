@@ -1,5 +1,5 @@
 <?php
-// auth.php - Funciones de autenticación y control de acceso
+// auth.php - Funciones de autenticación y control de acceso (VERSIÓN CORREGIDA)
 
 session_start();
 
@@ -97,14 +97,16 @@ function login_usuario($mysqli, $username, $password) {
     $update->bind_param("i", $usuario['id']);
     $update->execute();
     
-    // Registrar sesión (opcional)
+    // Registrar sesión con prepared statement (CORREGIDO)
     $session_id = session_id();
     $ip = $_SERVER['REMOTE_ADDR'];
     $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
     
-    $mysqli->query("INSERT INTO sesiones (id, usuario_id, ip_address, user_agent) 
-                    VALUES ('$session_id', {$usuario['id']}, '$ip', '$user_agent')
-                    ON DUPLICATE KEY UPDATE last_activity = NOW()");
+    $stmt_session = $mysqli->prepare("INSERT INTO sesiones (id, usuario_id, ip_address, user_agent) 
+                                       VALUES (?, ?, ?, ?)
+                                       ON DUPLICATE KEY UPDATE last_activity = NOW()");
+    $stmt_session->bind_param("siss", $session_id, $usuario['id'], $ip, $user_agent);
+    $stmt_session->execute();
     
     return ['success' => true, 'mensaje' => 'Login exitoso'];
 }
@@ -113,7 +115,11 @@ function login_usuario($mysqli, $username, $password) {
 function logout_usuario($mysqli) {
     if (isset($_SESSION['usuario_id'])) {
         $session_id = session_id();
-        $mysqli->query("DELETE FROM sesiones WHERE id = '$session_id'");
+        
+        // Usar prepared statement (CORREGIDO)
+        $stmt = $mysqli->prepare("DELETE FROM sesiones WHERE id = ?");
+        $stmt->bind_param("s", $session_id);
+        $stmt->execute();
     }
     
     session_unset();
