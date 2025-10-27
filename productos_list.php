@@ -169,7 +169,16 @@ unset($_SESSION['mensaje_exito'], $_SESSION['mensaje_error']);
 </head>
 <body>
     <div class="header">
-        <h1>🔌 Electro Misiones - Productos</h1>
+        <div style="flex: 1;">
+            <h1>🔌 Electro Misiones - Productos</h1>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <a href="index.php" style="padding: 8px 16px; background: #f8f9fa; color: #333; text-decoration: none; border-radius: 5px; font-size: 14px;">🏠 Dashboard</a>
+                <a href="productos_list.php" style="padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 14px;">📦 Productos</a>
+                <?php if ($usuario['rol'] === 'admin'): ?>
+                    <a href="usuarios_list.php" style="padding: 8px 16px; background: #f8f9fa; color: #333; text-decoration: none; border-radius: 5px; font-size: 14px;">👥 Usuarios</a>
+                <?php endif; ?>
+            </div>
+        </div>
         <div class="user-info">
             <span class="user-badge"><?= htmlspecialchars($usuario['nombre_completo'] ?: $usuario['username']) ?></span>
             <span class="role-badge role-<?= htmlspecialchars($usuario['rol']) ?>">
@@ -180,6 +189,13 @@ unset($_SESSION['mensaje_exito'], $_SESSION['mensaje_error']);
     </div>
 
     <div class="content">
+        <?php if ($primer_usuario): ?>
+            <div class="alert alert-success" style="background: #d4edda; border-color: #c3e6cb;">
+                🎉 <strong>¡Bienvenido al sistema, <?= htmlspecialchars($usuario['nombre_completo'] ?: $usuario['username']) ?>!</strong><br>
+                Tu cuenta de administrador ha sido creada exitosamente. Ahora tienes acceso completo al sistema.
+            </div>
+        <?php endif; ?>
+
         <?php if ($mensaje_exito): ?>
             <div class="alert alert-success">✅ <?= htmlspecialchars($mensaje_exito) ?></div>
         <?php endif; ?>
